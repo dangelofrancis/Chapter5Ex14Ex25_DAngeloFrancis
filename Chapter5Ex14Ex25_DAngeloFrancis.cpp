@@ -15,14 +15,14 @@ Input Validation: Do not accept a number less than 1 or greater than 25 for the 
 
 #include <iostream>
 #include <string>
-#include <fstream>
 using namespace std;
 
 int main()
 {
-	ofstream outputFile;
 	int studentsNum = 0;
 	string name;
+	string firstName;
+	string lastName;
 
 	do
 	{
@@ -35,12 +35,31 @@ int main()
 		}
 	} while (studentsNum < 1 || studentsNum > 25);
 
-	outputFile.open("LineUp.txt");
 
 	for (int count = 1; count <= studentsNum; count++)
 	{
 		cout << "Enter name number " << count << ": ";
-		outputFile << name << endl;
+		cin >> name;
+
+		if (count == 1)
+		{
+			firstName = name;
+			lastName = name;
+		}
+
+		if (name < firstName)
+		{
+			firstName = name;
+		}
+
+		if (name > lastName)
+		{
+			lastName = name;
+		}
 	}
-	outputFile.close();
+
+	cout << endl << firstName << " is at the front of the line.";
+	cout << endl << lastName << " is at the end of the line.";
+
+	return 0;
 }
