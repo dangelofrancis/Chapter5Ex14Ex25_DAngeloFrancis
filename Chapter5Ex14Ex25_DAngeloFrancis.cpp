@@ -11,55 +11,46 @@ Once all the names have been read, it reports which student would be at the fron
 which one would be at the end of the line. You may assume that no two students have the same name.
 
 Input Validation: Do not accept a number less than 1 or greater than 25 for the number of students.
+
+
+Create a new branch in your Exercise 14 project that modifies the Student Line Up program described in 
+
+Programming Challenge 14 so it reads the student names from the file LineUp.txt. 
+
+The program should read names from the file until there is no more data to read.
 */
 
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 int main()
 {
+	ifstream inputFile;
 	int studentsNum = 0;
+	int count = 0;
 	string name;
 	string firstName;
 	string lastName;
 
-	do
+	// I couldn't find the 'LineUp.txt' so I'm using the 'names.txt' from the module, which I think is the same thing
+	
+	inputFile.open("names.txt");
+	
+	if (inputFile)
 	{
-		cout << "Enter how many students there are in the class: ";
-		cin >> studentsNum;
-
-		if (studentsNum < 1 || studentsNum > 25)
+		while (inputFile >> name)
 		{
-			cout << endl << "*ERROR* The number of students cannot be less than 1, or greater than 25. Please try again." << endl << endl;
+			count++;
+			cout << "Name number " << count << ": " << name << endl;
 		}
-	} while (studentsNum < 1 || studentsNum > 25);
-
-
-	for (int count = 1; count <= studentsNum; count++)
+		inputFile.close();
+	}	
+	else
 	{
-		cout << "Enter name number " << count << ": ";
-		cin >> name;
-
-		if (count == 1)
-		{
-			firstName = name;
-			lastName = name;
-		}
-
-		if (name < firstName)
-		{
-			firstName = name;
-		}
-
-		if (name > lastName)
-		{
-			lastName = name;
-		}
+		cout << "*ERROR* Unable to open file.";
 	}
-
-	cout << endl << firstName << " is at the front of the line.";
-	cout << endl << lastName << " is at the end of the line.";
 
 	return 0;
 }
